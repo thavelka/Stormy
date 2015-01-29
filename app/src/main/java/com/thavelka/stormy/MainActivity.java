@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.TimeZone;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -84,6 +85,7 @@ public class MainActivity extends ActionBarActivity {
         JSONObject currently = forecast.getJSONObject("currently");
         CurrentWeather currentWeather = new CurrentWeather();
         currentWeather.setHumidity(currently.getDouble("humidity"));
+        currentWeather.setTimeZone(timezone);
         currentWeather.setTime(currently.getLong("time"));
         currentWeather.setIcon(currently.getString("icon"));
         currentWeather.setPrecipChance(currently.getDouble("precipProbability"));
