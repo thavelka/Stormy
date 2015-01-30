@@ -2,6 +2,7 @@ package com.thavelka.stormy;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.precipValue) TextView mPrecipValue;
     @InjectView(R.id.summaryText) TextView mSummaryLabel;
     @InjectView(R.id.iconImageView) ImageView mIconImageView;
+    @InjectView(R.id.refreshButton) ImageView mRefreshButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,8 @@ public class MainActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
         String apiKey = "4f3675b8fedc273c312b8f525ddf40b5";
-        Double latitude = 37.8267;
-        Double longitude = -122.423;
+        Double latitude = 30.6286529;
+        Double longitude = -96.3515795;
         String forecastUrl = "https://api.forecast.io/forecast/"
                + apiKey + "/" + latitude + "," + longitude;
 
@@ -75,6 +78,14 @@ public class MainActivity extends ActionBarActivity {
                         if (response.isSuccessful()) {
                             mCurrentWeather = getCurrentDetails(jsonData);
 
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateDisplay();
+                                }
+                            });
+
+
                         } else {
                             alertUserAboutError();
                         }
@@ -85,16 +96,33 @@ public class MainActivity extends ActionBarActivity {
                     }
                 }
             });
+
+
         }
 
-        Log.d(TAG, "Main UI running");
+        mRefreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+            }
+        });
 
+    }
+
+    private void updateDisplay() {
+        mTempLabel.setText(""+mCurrentWeather.getTemp());
+        mTimeLabel.setText("As of " + mCurrentWeather.getFormattedTime() + " it is");
+        mHumidityValue.setText(mCurrentWeather.getHumidity()+"%");
+        mPrecipValue.setText(mCurrentWeather.getPrecipChance()+"%");
+        mSummaryLabel.setText(mCurrentWeather.getSummary());
+
+        Drawable drawable = getResources().getDrawable(mCurrentWeather.getIconId());
+        mIconImageView.setImageDrawable(drawable);
     }
 
     private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
         JSONObject forecast = new JSONObject(jsonData);
         String timezone = forecast.getString("timezone");
-        Log.i(TAG, "From JSON: " + timezone);
 
         JSONObject currently = forecast.getJSONObject("currently");
         CurrentWeather currentWeather = new CurrentWeather();
