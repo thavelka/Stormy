@@ -16,10 +16,11 @@ Features:
 * Displays local time, temp, humidity, chance of rain, and a short summary.
 * Refresh button to get new data.
 * Small icon that changes with the weather.
+* Dynamic background color based on time and weather
 
 Planned features:
 * Hourly info displayed by dragging slider.
-* Dynamic backgrounds based on time and weather.
+* ~~Dynamic backgrounds based on time and weather.~~
 * Notifications?
 
 This is by far the most challenging Android application I've made so far, and I plan to keep challenging myself with it.
@@ -30,3 +31,9 @@ So far, I've learned how to...
 * handle network and GPS unavailablity.
 * get location data from GPS and Networks.
 * use a keystore to generate a signed APK.
+
+Screenshots:
+(It's pure coincidence that the temperature is the same in both Bryan and Seoul)
+<img src="http://i.imgur.com/pQSe3Ko.png?1" />
+<img src="http://i.imgur.com/UG0UScz.png?1" />
+<img src="http://i.imgur.com/kJMZ1n4.png?1" />
