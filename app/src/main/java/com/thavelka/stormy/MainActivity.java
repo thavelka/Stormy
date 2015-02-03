@@ -87,14 +87,28 @@ public class MainActivity extends ActionBarActivity {
         Criteria criteria = new Criteria();
         String bestProvider = locationManager.getBestProvider(criteria, false);
         Location location = locationManager.getLastKnownLocation(bestProvider);
+        LocationListener loc_listener = new LocationListener() {
+
+            public void onLocationChanged(Location l) {}
+
+            public void onProviderEnabled(String p) {}
+
+            public void onProviderDisabled(String p) {}
+
+            public void onStatusChanged(String p, int status, Bundle extras) {}
+        };
+        locationManager
+                .requestLocationUpdates(bestProvider, 0, 0, loc_listener);
+        location = locationManager.getLastKnownLocation(bestProvider);
         double[] loc = new double[2];
         try {
             loc[0] = location.getLatitude();
             loc[1] = location.getLongitude();
         } catch (NullPointerException e) {
             loc[0] = -1.0;
-            loc[2] = -1.0;
+            loc[1] = -1.0;
         }
+
         return loc;
     }
 
@@ -120,7 +134,9 @@ public class MainActivity extends ActionBarActivity {
         String apiKey = "4f3675b8fedc273c312b8f525ddf40b5";
 
         String forecastUrl = "https://api.forecast.io/forecast/"
-               + apiKey + "/" + latitude + "," + longitude;
+              + apiKey + "/" + latitude + "," + longitude;
+
+        //String forecastUrl = "https://api.forecast.io/forecast/4f3675b8fedc273c312b8f525ddf40b5/37.5651,126.98955";
 
         if (isNetworkAvailable()) {
             toggleRefresh();
