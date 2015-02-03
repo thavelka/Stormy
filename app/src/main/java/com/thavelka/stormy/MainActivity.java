@@ -82,6 +82,9 @@ public class MainActivity extends ActionBarActivity {
 
     private double[] getLocation() {
         // Get the location manager
+
+        // TODO: simplify and clean location detection
+
         LocationManager locationManager = (LocationManager)
                 getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -137,6 +140,8 @@ public class MainActivity extends ActionBarActivity {
 
         String forecastUrl = "https://api.forecast.io/forecast/"
               + apiKey + "/" + latitude + "," + longitude;
+
+        // TODO: check for GPS availability
 
         if (isNetworkAvailable()) {
             toggleRefresh();
@@ -217,6 +222,8 @@ public class MainActivity extends ActionBarActivity {
 
         Drawable drawable = getResources().getDrawable(mCurrentWeather.getIconId());
         mIconImageView.setImageDrawable(drawable);
+
+        // TODO: change dynamic color BG to images
         mRelativeLayout.setBackgroundColor(Color.parseColor(mCurrentWeather.getBgColor()));
         mLocationLabel.setText(mCurrentWeather.getLocation());
         mTempLabel.setText(""+mCurrentWeather.getTemp());
@@ -261,6 +268,8 @@ public class MainActivity extends ActionBarActivity {
         }
         return isAvailable;
     }
+
+    // TODO: create test for GPS availability (isLocationAvailable)
 
     private void alertUserAboutError() {
         AlertDialogFragment dialog = new AlertDialogFragment();
