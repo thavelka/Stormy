@@ -128,15 +128,15 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void getForecast() {
+        
         double[] loc = getLocation();
         double latitude = loc[0];
         double longitude = loc[1];
+
         String apiKey = "4f3675b8fedc273c312b8f525ddf40b5";
 
         String forecastUrl = "https://api.forecast.io/forecast/"
               + apiKey + "/" + latitude + "," + longitude;
-
-        //String forecastUrl = "https://api.forecast.io/forecast/4f3675b8fedc273c312b8f525ddf40b5/37.5651,126.98955";
 
         if (isNetworkAvailable()) {
             toggleRefresh();
