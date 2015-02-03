@@ -1,7 +1,5 @@
 # Stormy
 
-#### (CURRENTLY BROKEN WHILE I TEST EXCEPTION HANDLING) ####
-
 This app began with another great Team Treehouse tutorial about web APIs, and I've continued to add features on my own.
 
 The finished product of the tutorial left us with a weather app that had a hardcoded location, and would retreive weather data using the forecast.io API.
